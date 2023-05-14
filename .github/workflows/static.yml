@@ -1,0 +1,20 @@
+on:
+  push:
+    branches: ["lab5"]
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Deploy file
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          server: gl.umbc.edu
+          username: ${{ secrets.ftp_username }}
+          password: ${{ secrets.ftp_password }}
+          local_path: './*'
+          remote_path: '/afs/umbc.edu/users/z/m/z41/pub/swe2023/'
+          sftp_only: true
